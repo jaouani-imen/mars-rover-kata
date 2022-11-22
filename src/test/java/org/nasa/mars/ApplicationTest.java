@@ -34,10 +34,17 @@ public class ApplicationTest {
     }
 
     @Test
-    public void rover_line_error_test() throws RoverInputDataValidationException, IOException {
+    public void rover_line_not_valid_error_test() throws RoverInputDataValidationException, IOException {
         expectedEx.expect(RoverInputDataValidationException.class);
-        expectedEx.expectMessage(RovertInputFileManager.ROVER_PARAMS_ERROR_MESSAGE);
-        Application.main(PATH + "rover_line_error_file.txt");
+        expectedEx.expectMessage(RovertInputFileManager.ROVER_PARAMS_NOT_VALID_ERROR_MESSAGE);
+        Application.main(PATH + "rover_line_not_valid_error_file.txt");
+    }
+
+    @Test
+    public void rover_line_out_of_plateau_error_test() throws RoverInputDataValidationException, IOException {
+        expectedEx.expect(RoverInputDataValidationException.class);
+        expectedEx.expectMessage(RovertInputFileManager.ROVER_PARAMS_OUT_OF_PLATEAU_ERROR_MESSAGE);
+        Application.main(PATH + "rover_line_out_plateau_error_file.txt");
     }
 
     @Test

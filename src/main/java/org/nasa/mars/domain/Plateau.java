@@ -4,18 +4,21 @@ import lombok.Data;
 
 @Data
 public class Plateau {
-    private Coordinate initialCoordinate;
-    private Coordinate maximalCoordinate;
+
+    private final int lowerLeftCoordinateX = 0;
+    private final int lowerLeftCoordinateY = 0;
+    private Coordinate lowerLeftCoordinate;
+    private Coordinate upperRightCoordinate;
 
     public Plateau(int maxCoordinateX, int maxCoordinateY) {
-        this.initialCoordinate = new Coordinate(0, 0);
-        this.maximalCoordinate = new Coordinate(maxCoordinateX, maxCoordinateY);
+        this.lowerLeftCoordinate = new Coordinate(lowerLeftCoordinateX, lowerLeftCoordinateY);
+        this.upperRightCoordinate = new Coordinate(maxCoordinateX, maxCoordinateY);
     }
 
     public boolean outOfPlateau(Coordinate coordinate) {
-        return coordinate.getX() >= 0
-                && coordinate.getY() >= 0
-                && coordinate.getX() <= this.getMaximalCoordinate().getX()
-                && coordinate.getY() <= this.getMaximalCoordinate().getY();
+        return coordinate.getX() < lowerLeftCoordinateX
+                || coordinate.getY() < lowerLeftCoordinateY
+                || coordinate.getX() > this.getUpperRightCoordinate().getX()
+                || coordinate.getY() > this.getUpperRightCoordinate().getY();
     }
 }

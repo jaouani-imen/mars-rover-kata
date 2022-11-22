@@ -74,21 +74,21 @@ public class Rover {
     private void moveForward() throws InvalidMoveException {
         switch (direction) {
             case NORTH: {
-                if ((coordinate.getY() + 1) > plateau.getMaximalCoordinate().getY())
+                if ((coordinate.getY() + 1) > plateau.getUpperRightCoordinate().getY())
                     throw new InvalidMoveException(PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
                 coordinate.setY(coordinate.getY() + 1);
                 break;
             }
 
             case EAST: {
-                if ((coordinate.getX() + 1) > plateau.getMaximalCoordinate().getX())
+                if ((coordinate.getX() + 1) > plateau.getUpperRightCoordinate().getX())
                     throw new InvalidMoveException(PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
                 coordinate.setX(coordinate.getX() + 1);
                 break;
             }
 
             case WEST: {
-                if ((coordinate.getX() - 1) < plateau.getInitialCoordinate().getX())
+                if ((coordinate.getX() - 1) < plateau.getLowerLeftCoordinate().getX())
                     throw new InvalidMoveException(PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
                 coordinate.setX(coordinate.getX() - 1);
                 break;
@@ -96,7 +96,7 @@ public class Rover {
             }
 
             case SOUTH: {
-                if ((coordinate.getY() - 1) < plateau.getInitialCoordinate().getY())
+                if ((coordinate.getY() - 1) < plateau.getLowerLeftCoordinate().getY())
                     throw new InvalidMoveException(PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
                 coordinate.setY(coordinate.getY() - 1);
                 break;

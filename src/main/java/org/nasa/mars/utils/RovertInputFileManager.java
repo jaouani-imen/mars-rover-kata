@@ -14,9 +14,10 @@ import java.util.stream.Stream;
 public class RovertInputFileManager {
 
     public static final String PLATEAU_MAX_POSITION_ERROR_MESSAGE = "Plateau Input Data is not valid !";
-    public static final String ROVER_PARAMS_ERROR_MESSAGE = "Rover Input Data is not valid !";
-    public static final String INSTRUCTIONS_ERROR_MESSAGE = "Instructions Input Data is not valid !";
+    public static final String ROVER_PARAMS_NOT_VALID_ERROR_MESSAGE = "Rover Input Data is not valid !";
+    public static final String ROVER_PARAMS_OUT_OF_PLATEAU_ERROR_MESSAGE = "Rover coordinate is out of Plateau !";
 
+    public static final String INSTRUCTIONS_ERROR_MESSAGE = "Instructions Input Data is not valid !";
     public static final String INPUT_DATA_LINE_SEPARATOR = " ";
 
     public static List<String> parseInputFromFile(String fileName) throws IOException {
@@ -38,12 +39,15 @@ public class RovertInputFileManager {
 
     public static Rover parseRoverPositionInput(String positionInput, Plateau plateau) throws RoverInputDataValidationException {
         if (!RovertInputFileValidator.roverInputIsValidated(positionInput))
-            throw new RoverInputDataValidationException(ROVER_PARAMS_ERROR_MESSAGE);
+            throw new RoverInputDataValidationException(ROVER_PARAMS_NOT_VALID_ERROR_MESSAGE);
         String[] inputArray = positionInput.split(INPUT_DATA_LINE_SEPARATOR);
         int roverCoordinateX = Integer.parseInt(inputArray[0]);
         int roverCoordinateY = Integer.parseInt(inputArray[1]);
+        Coordinate roverCoordinate = new Coordinate(roverCoordinateX, roverCoordinateY);
+        if (plateau.outOfPlateau(roverCoordinate))
+            throw new RoverInputDataValidationException(ROVER_PARAMS_OUT_OF_PLATEAU_ERROR_MESSAGE);
         DIRECTION direction = DIRECTION.getDirectionByCode(inputArray[2].toCharArray()[0]).get();
-        return new Rover(plateau, new Coordinate(roverCoordinateX, roverCoordinateY), direction);
+        return new Rover(plateau, roverCoordinate, direction);
     }
 
     public static List<INSTRUCTION> parseInstructionsInput(String instructionsInput) throws RoverInputDataValidationException {
