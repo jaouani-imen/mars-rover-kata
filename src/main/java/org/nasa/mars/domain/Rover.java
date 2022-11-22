@@ -9,7 +9,6 @@ import static org.nasa.mars.domain.DIRECTION.*;
 
 @Data
 public class Rover {
-
     private Plateau plateau;
     private Coordinate coordinate;
     private DIRECTION direction;
@@ -76,21 +75,21 @@ public class Rover {
         switch (direction) {
             case NORTH: {
                 if ((coordinate.getY() + 1) > plateau.getMaximalCoordinate().getY())
-                    throw new InvalidMoveException( PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
+                    throw new InvalidMoveException(PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
                 coordinate.setY(coordinate.getY() + 1);
                 break;
             }
 
             case EAST: {
                 if ((coordinate.getX() + 1) > plateau.getMaximalCoordinate().getX())
-                    throw new InvalidMoveException( PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
+                    throw new InvalidMoveException(PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
                 coordinate.setX(coordinate.getX() + 1);
                 break;
             }
 
             case WEST: {
                 if ((coordinate.getX() - 1) < plateau.getInitialCoordinate().getX())
-                    throw new InvalidMoveException( PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
+                    throw new InvalidMoveException(PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
                 coordinate.setX(coordinate.getX() - 1);
                 break;
 
@@ -98,7 +97,7 @@ public class Rover {
 
             case SOUTH: {
                 if ((coordinate.getY() - 1) < plateau.getInitialCoordinate().getY())
-                    throw new InvalidMoveException( PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
+                    throw new InvalidMoveException(PREFIX_INVALID_MOVE_ERROR_MESSAGE + printPosition());
                 coordinate.setY(coordinate.getY() - 1);
                 break;
             }
